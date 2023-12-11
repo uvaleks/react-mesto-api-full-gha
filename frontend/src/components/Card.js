@@ -17,7 +17,7 @@ function Card({ name, link, likes, card, onCardClick, onCardLike, onCardDelete }
     }
 
     const isOwn = card.owner._id === currentUser._id;
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
     return (
         <article className="card">

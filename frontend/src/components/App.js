@@ -49,9 +49,9 @@ function App() {
 
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some(i => i === currentUser._id);
     
-        api.changeLikeCardStatus(card._id, !isLiked)
+        api.changeLikeCardStatus(card._id, currentUser._id, !isLiked)
         .then(newCard => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
         })
@@ -163,10 +163,16 @@ function App() {
       const onLogin = (password, email) => {
         return auth.authorize(email, password)
         .then((res) => {
-            if (res.token) {
+            //const { cookie } = res.headers;
+            //console.log(res.message);
+            if (res.message === 'Всё верно!') {
                 setLoggedIn(true);
-                localStorage.setItem('jwt', res.token);
+                //localStorage.setItem('jwt', res.token);
             }
+            // if (res.token) {
+            //     setLoggedIn(true);
+            //     localStorage.setItem('jwt', res.token);
+            // }
         })
         .catch((err) => {
             if (err === 'Ошибка 401') {
@@ -179,7 +185,7 @@ function App() {
 
       const onSignOut = () => {
         if (loggedIn) {
-            localStorage.removeItem('jwt');
+            //localStorage.removeItem('jwt');
             setLoggedIn(false);
             navigate('/signin')
             }

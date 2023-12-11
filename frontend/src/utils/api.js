@@ -17,14 +17,18 @@ class Api {
     }
 
     getCards() {
-        return this._request('/cards', {headers: this._headers})
+        return this._request('/cards', {
+            credentials: 'include',
+            headers: this._headers
+        })
     }
 
     postCard({name, link}) {
         return this._request('/cards', {
             method: 'POST',
+            credentials: 'include',
             headers: {
-                authorization: this._headers.authorization,
+                // authorization: this._headers.authorization,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -37,8 +41,9 @@ class Api {
     patchAvatar(link) {
         return this._request('/users/me/avatar', {
             method: 'PATCH',
+            credentials: 'include',
             headers: {
-                authorization: this._headers.authorization,
+                // authorization: this._headers.authorization,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -47,20 +52,24 @@ class Api {
         })
     }
 
-    changeLikeCardStatus(id, isLiked) {
+    changeLikeCardStatus(id, userId, isLiked) {
+        console.log('id', id);
+        console.log('userId', userId);
         if (isLiked) {
             return this._request(`/cards/${id}/likes`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
-                    authorization: this._headers.authorization,
+                    // authorization: this._headers.authorization,
                     'Content-Type': 'application/json'
                 }
             })
         } else {
             return this._request(`/cards/${id}/likes`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
-                    authorization: this._headers.authorization,
+                    // authorization: this._headers.authorization,
                     'Content-Type': 'application/json'
                 }
             })
@@ -70,22 +79,27 @@ class Api {
     deleteCard(id) {
         return this._request(`/cards/${id}`, {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
-                authorization: this._headers.authorization,
+                // authorization: this._headers.authorization,
                 'Content-Type': 'application/json'
             }
         })
     }
 
     getUserInfo() {
-        return this._request('/users/me', {headers: this._headers})
+        return this._request('/users/me', {
+            credentials: 'include',
+            headers: this._headers
+        })
     }
 
     patchUserInfo({name, about}) {
         return this._request('/users/me', {
             method: 'PATCH',
+            credentials: 'include',
             headers: {
-                authorization: this._headers.authorization,
+                // authorization: this._headers.authorization,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -97,10 +111,10 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-68',
-    headers: {
-      authorization: 'b14febf0-0b28-4e38-a9e1-9974acb9fa00'
-    }
+    baseUrl: 'http://localhost:3001',
+    // headers: {
+    //   authorization: 'b14febf0-0b28-4e38-a9e1-9974acb9fa00'
+    // }
   });
 
 export default api;

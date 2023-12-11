@@ -8,18 +8,21 @@ const {
   createUser,
 } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const router = require('./routes');
 
 const app = express();
 
-const { PORT, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
+const { PORT = 3001, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
 mongoose.connect(MONGO_URL);
 
 app.use(json());
 
 app.use(requestLogger);
+
+app.use(cors);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
