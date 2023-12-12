@@ -31,7 +31,7 @@ function Main({
             <button className="profile__add-button" type="button" aria-label="Добавить" onClick={onAddPlace}></button>
         </section>
         <section className="elements">
-          {cards.map((card) => (
+          {cards.toReversed().map((card) => (
             <Card
               name={card.name}
               link={card.link}

@@ -41,7 +41,7 @@ function App() {
     
     useEffect(() => {
       api.getUserInfo().then(setCurrentUser).catch(console.error);
-    }, []);
+    }, [loggedIn]);
 
     useEffect(() => {
       api.getCards().then(setCards).catch(console.error);
@@ -61,7 +61,7 @@ function App() {
     function handleCardDelete(card) {
         api.deleteCard(card._id)
         .then(response => {
-          if (response.message === 'Пост удалён') {
+          if (response.acknowledged) {
             setCards((state) => state.filter((item) => item._id !== card._id));
           }
         })
@@ -94,7 +94,7 @@ function App() {
 
     function handleAddCard(name, link) {
       function makeRequest() {
-        return api.postCard({name, link}).then((newCard) => {setCards([newCard, ...cards])});
+        return api.postCard({name, link}).then((newCard) => {setCards([...cards, newCard])});
       }
       handleSubmit(makeRequest);
     }
@@ -111,27 +111,33 @@ function App() {
         setSelectedCard(card)
     }
 
-    const checkToken = async (jwt) => {
-        return auth.getContent(jwt)
-          .then((res) => {
-            if (res) {
-                setLoggedIn(true);
-                setUserEmail(res.data.email);
-            }
-          })
-          .catch((err) => console.log(err))
-      };
+    // const checkToken = async (jwt) => {
+    //     return auth.getContent(jwt)
+    //       .then((res) => {
+    //         if (res) {
+    //             setLoggedIn(true);
+    //             setUserEmail(res.data.email);
+    //         }
+    //       })
+    //       .catch((err) => console.log(err))
+    //   };
+    
+      // useEffect(() => {
+      //   const jwt = localStorage.getItem('jwt');
+    
+      //   if (jwt) {
+      //       checkToken(jwt);
+      //   }
+      // }, [loggedIn]);
     
       useEffect(() => {
-        const jwt = localStorage.getItem('jwt');
-    
-        if (jwt) {
-            checkToken(jwt);
-        }
-      }, [loggedIn]);
-    
-      useEffect(() => {
-        if (loggedIn) {navigate('/main')};
+        const loggedInUserId = localStorage.getItem('loggedInUserId');
+        if (loggedInUserId) {
+          setLoggedIn(true);
+          navigate('/main');
+        } else {
+          setLoggedIn(false);
+        };
       }, [loggedIn]);
 
       useEffect(() => {
@@ -166,8 +172,8 @@ function App() {
             //const { cookie } = res.headers;
             //console.log(res.message);
             if (res.message === 'Всё верно!') {
-                setLoggedIn(true);
-                //localStorage.setItem('jwt', res.token);
+              localStorage.setItem('loggedInUserId', res._id);
+              setLoggedIn(true);
             }
             // if (res.token) {
             //     setLoggedIn(true);
@@ -186,10 +192,18 @@ function App() {
       const onSignOut = () => {
         if (loggedIn) {
             //localStorage.removeItem('jwt');
+            localStorage.removeItem('loggedInUserId');
+
             setLoggedIn(false);
             navigate('/signin')
             }
       };
+
+      // useEffect(() => {
+      //   if (!loggedIn) {
+      //     setCurrentUser({});
+      //   };
+      // }, [loggedIn]);
 
       const handleCloseErrorTooltip = () => {
         setErrorTooltipOpen(false);

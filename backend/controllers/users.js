@@ -92,7 +92,7 @@ const login = (req, res, next) => {
             path: '/',
           }));
 
-          return res.status(200).send({ message: 'Всё верно!' });
+          return res.status(200).send({ message: 'Всё верно!', _id: foundUser._id });
         });
     })
     .catch(next);
