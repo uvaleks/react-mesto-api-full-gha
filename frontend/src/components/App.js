@@ -40,12 +40,16 @@ function App() {
 
     
     useEffect(() => {
-      api.getUserInfo().then(setCurrentUser).catch(console.error);
+      if (loggedIn) {
+        api.getUserInfo().then(setCurrentUser).catch(console.error);
+      }
     }, [loggedIn]);
 
     useEffect(() => {
-      api.getCards().then(setCards).catch(console.error);
-    }, []);
+      if (loggedIn) {
+        api.getCards().then(setCards).catch(console.error);
+      }
+    }, [loggedIn]);
 
 
     function handleCardLike(card) {

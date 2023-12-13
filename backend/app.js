@@ -14,7 +14,7 @@ const router = require('./routes');
 
 const app = express();
 
-const { PORT = 3001, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
 mongoose.connect(MONGO_URL);
 
