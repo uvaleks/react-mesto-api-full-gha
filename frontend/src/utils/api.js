@@ -28,7 +28,6 @@ class Api {
             method: 'POST',
             credentials: 'include',
             headers: {
-                // authorization: this._headers.authorization,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -43,7 +42,6 @@ class Api {
             method: 'PATCH',
             credentials: 'include',
             headers: {
-                // authorization: this._headers.authorization,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -60,7 +58,6 @@ class Api {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
-                    // authorization: this._headers.authorization,
                     'Content-Type': 'application/json'
                 }
             })
@@ -69,7 +66,6 @@ class Api {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
-                    // authorization: this._headers.authorization,
                     'Content-Type': 'application/json'
                 }
             })
@@ -81,7 +77,6 @@ class Api {
             method: 'DELETE',
             credentials: 'include',
             headers: {
-                // authorization: this._headers.authorization,
                 'Content-Type': 'application/json'
             }
         })
@@ -99,7 +94,6 @@ class Api {
             method: 'PATCH',
             credentials: 'include',
             headers: {
-                // authorization: this._headers.authorization,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -111,10 +105,7 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: 'http://localhost:3001',
-    // headers: {
-    //   authorization: 'b14febf0-0b28-4e38-a9e1-9974acb9fa00'
-    // }
+    baseUrl: 'http://localhost:3000',
   });
 
 export default api;
