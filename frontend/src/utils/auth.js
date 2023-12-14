@@ -1,4 +1,4 @@
-const BASE_URL = 'https://localhost:3000';
+const BASE_URL = 'https://api.madburatino.nomoredomainsmonster.ru';
 
 const _checkResponse = (res) => {
   if (res.ok) {

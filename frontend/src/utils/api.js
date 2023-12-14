@@ -103,7 +103,7 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: 'https://localhost:3000',
+    baseUrl: 'https://api.madburatino.nomoredomainsmonster.ru',
   });
 
 export default api;
