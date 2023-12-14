@@ -1,6 +1,6 @@
 const allowedCors = [
   'https://madburatino.nomoredomainsmonster.ru',
-  // 'http://localhost:3001',
+  'https://api.madburatino.nomoredomainsmonster.ru',
 ];
 
 module.exports = (req, res, next) => {
