@@ -41,7 +41,12 @@ function App() {
     
     useEffect(() => {
       if (loggedIn) {
-        api.getUserInfo().then(setCurrentUser).catch(console.error);
+        api.getUserInfo()
+          .then((userObject) => {
+            setCurrentUser(userObject);
+            setUserEmail(userObject.email);
+          })
+          .catch(console.error);
       }
     }, [loggedIn]);
 
